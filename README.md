@@ -30,3 +30,16 @@ cd assistente-projetos-sustentaveis
 Abra o arquivo index.html em seu navegador preferido.
 
 Comece a interagir com o assistente!
+Personalização
+Para utilizar a API, você deve substituir a variável API_KEY com sua própria chave da OpenAI. Acesse a configuração do seu projeto para obter as credenciais necessárias.
+
+javascript
+Copiar código
+const API_KEY = 'sua_chave_aqui';
+Contribuições
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests.
+
+Licença
+Este projeto está sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+Sinta-se à vontade para ajustar os detalhes, como o link do repositório e seu e-mail!
