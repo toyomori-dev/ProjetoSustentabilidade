@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Sustentável</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #F5F5F5;
+            --dark-color: #2E7D32;
+            --light-color: #E8F5E9;
+            --font-color: #333;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-image: url('https://images.unsplash.com/photo-1542808901-d4e73f8c19b1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxMTc3M3wwfDF8c2VhcmNofDd8fHN1c3RhaW5hYmxlfGVufDB8fHx8MTY5MzM4MzQwNQ&ixlib=rb-1.2.1&q=80&w=1080');
+            background-size: cover;
+            background-position: center;
+        }
+        .info-section {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        .info-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .info-section h1 {
+            margin-top: 0;
+            font-size: 2rem;
+        }
+        .info-section p {
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        .chat-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            padding: 2rem;
+            gap: 1rem;
+        }
+        .chat-box {
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 20px 20px 0 0;
+        }
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .user-message {
+            background-color: var(--light-color);
+            align-self: flex-end;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .assistant-message {
+            background-color: #f0f0f0;
+            align-self: flex-start;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-input {
+            display: flex;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-top: 1px solid #ddd;
+        }
+        #user-input {
+            flex-grow: 1;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-right: 0.5rem;
+        }
+        #send-button {
+            padding: 0.8rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        #send-button:hover {
+            background-color: var(--dark-color);
+            transform: scale(1.05);
+        }
+        .loading {
+            text-align: center;
+            color: #888;
+        }
+        .history-section {
+            max-width: 300px;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+        }
+        .history-section h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+        .history-message {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--font-color);
+        }
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            margin: 1rem 0;
+        }
+        .status-indicator span {
+            margin-left: 0.5rem;
+        }
+        .message-count {
+            margin: 1rem 0;
+            font-weight: bold;
+            text-align: center;
+        }
+        .suggestions {
+            margin-top: 1rem;
+            padding: 1rem;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .suggestion {
+            cursor: pointer;
+            color: var(--primary-color);
+            text-decoration: underline;
+            margin-bottom: 0.5rem;
+        }
+        @media (max-width: 600px) {
+            .info-section, .chat-container {
+                padding: 1rem;
+            }
+            .chat-container {
+                flex-direction: column;
+            }
+            .history-section {
+                max-width: 100%;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="info-section">
+        <div class="info-content">
+            <h1>Educação Sustentável</h1>
+            <p>Descubra projetos que promovem a educação de qualidade de maneira sustentável. Converse com nosso assistente e explore ideias inovadoras!</p>
+        </div>
+    </div>
+    <div class="chat-container">
+        <div class="chat-box">
+            <div class="chat-header">
+                Assistente de Educação Sustentável
+            </div>
+            <div class="status-indicator">
+                <span id="status">🟢 Online</span>
+            </div>
+            <div class="message-count" id="message-count">Mensagens trocadas: 0</div>
+            <div class="chat-messages" id="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Digite sua pergunta...">
+                <button id="send-button">Enviar</button>
+            </div>
+        </div>
+        <div class="history-section" id="history-section">
+            <h2>Histórico de Conversa</h2>
+            <div id="history-content"></div>
+            <button id="clear-history" style="margin-top: 1rem; background-color: var(--primary-color); color: white; border: none; border-radius: 10px; padding: 0.5rem; cursor: pointer;">Limpar Histórico</button>
+        </div>
+    </div>
+    <div class="suggestions">
+        <h2>Dicas de Tópicos:</h2>
+        <div class="suggestion" onclick="sendSuggestion('Hortas escolares')">Hortas escolares</div>
+        <div class="suggestion" onclick="sendSuggestion('Energia renovável em escolas')">Energia renovável em escolas</div>
+        <div class="suggestion" onclick="sendSuggestion('Reciclagem')">Reciclagem</div>
+        <div class="suggestion" onclick="sendSuggestion('Engajamento comunitário')">Engajamento comunitário</div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script>
+        const chatMessages = document.getElementById('chat-messages');
+        const userInput = document.getElementById('user-input');
+        const sendButton = document.getElementById('send-button');
+        const messageCountDisplay = document.getElementById('message-count');
+        const historyContent = document.getElementById('history-content');
+        const statusIndicator = document.getElementById('status');
+        const clearHistoryButton = document.getElementById('clear-history');
+
+        const API_KEY = '5f74eb8579e44d3db55d9548a13d7eb1';  // Substitua pelo seu API Key
+        const API_URL = 'https://alexa-m20y9agv-francecentral.openai.azure.com/openai/deployments/gpt-35-turboGracio/chat/completions?api-version=2023-03-15-preview'; // Substitua pela URL da sua API
+
+        let conversationHistory = [];
+        let messageCount = 0;
+
+        async function sendMessage(userMessage) {
+            try {
+                const response = await axios.post(API_URL, {
+                    messages: [
+                        { role: "system", content: "Você é um assistente virtual especializado em educação sustentável..." },
+                        ...conversationHistory,
+                        { role: "user", content: userMessage }
+                    ],
+                    max_tokens: 800,
+                    temperature: 0.7,
+                    top_p: 0.95,
+                    frequency_penalty: 0,
+                    presence_penalty: 0
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'api-key': API_KEY
+                    }
+                });
+
+                return response.data.choices[0].message.content;
+            } catch (error) {
+                console.error('Erro ao enviar mensagem:', error);
+                return "Desculpe, ocorreu um erro ao processar sua mensagem.";
+            }
+        }
+
+        function addMessage(content, isUser) {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message');
+            messageElement.classList.add(isUser ? 'user-message' : 'assistant-message');
+            messageElement.textContent = content;
+
+            chatMessages.appendChild(messageElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            const historyMessage = document.createElement('div');
+            historyMessage.classList.add('history-message');
+            historyMessage.textContent = `${isUser ? 'Você: ' : 'Assistente: '}${content}`;
+            historyContent.appendChild(historyMessage);
+            historyContent.scrollTop = historyContent.scrollHeight;
+
+            // Atualiza contador de mensagens
+            messageCount++;
+            messageCountDisplay.textContent = `Mensagens trocadas: ${messageCount}`;
+        }
+
+        function addLoadingMessage() {
+            const loadingElement = document.createElement('div');
+            loadingElement.classList.add('message', 'assistant-message', 'loading');
+            loadingElement.textContent = 'Digitando...';
+            chatMessages.appendChild(loadingElement);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            return loadingElement;
+        }
+
+        sendButton.addEventListener('click', async () => {
+            const message = userInput.value.trim();
+            if (message) {
+                addMessage(message, true);
+                userInput.value = '';
+
+                const loadingMessage = addLoadingMessage();
+                const response = await sendMessage(message);
+                chatMessages.removeChild(loadingMessage);
+
+                addMessage(response, false);
+                conversationHistory.push({ role: "user", content: message });
+                conversationHistory.push({ role: "assistant", content: response });
+            }
+        });
+
+        userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+
+        clearHistoryButton.addEventListener('click', () => {
+            historyContent.innerHTML = '';
+            conversationHistory = [];
+            messageCount = 0;
+            messageCountDisplay.textContent = `Mensagens trocadas: ${messageCount}`;
+        });
+
+        function sendSuggestion(suggestion) {
+            userInput.value = `Fale sobre ${suggestion}`;
+            sendButton.click();
+        }
+    </script>
+</body>
+</html>
