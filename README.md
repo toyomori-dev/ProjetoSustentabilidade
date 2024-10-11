@@ -41,5 +41,3 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull r
 
 Licença
 Este projeto está sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
-
-Sinta-se à vontade para ajustar os detalhes, como o link do repositório e seu e-mail!
