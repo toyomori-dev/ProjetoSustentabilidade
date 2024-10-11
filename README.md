@@ -26,6 +26,7 @@ O **Assistente de Projetos Sustentáveis** é uma aplicação web interativa que
 
 Navegue até o diretório do projeto:
 cd assistente-projetos-sustentaveis
+
 Abra o arquivo index.html em seu navegador preferido.
 
 Comece a interagir com o assistente!
